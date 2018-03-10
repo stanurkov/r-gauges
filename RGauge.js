@@ -1,6 +1,23 @@
 import React, {Component} from 'react';
 import { BaseGauge, LinearGauge, RadialGauge } from 'canvas-gauges';
 
+function objectWithout( object, exclude ) {
+    let i, j;
+    for (i in exclude) {
+        if (typeof object[i] !== 'undefined') {
+            const newObject = {};
+            for (j in object) {
+                if (!(exclude[j])) {
+                    newObject[j] = object[j];
+                }
+            }
+            return newObject;
+        }
+    }
+    return object;
+}
+
+
 
 export default class RGauge extends Component {
 
@@ -14,13 +31,17 @@ export default class RGauge extends Component {
     }
 
     componentWillReceiveProps(props) {
-        const {
-            id,
-            className,
-            children,
-            style,
-            ...options
-        } = props;
+        const options = objectWithout(props, {
+            id: true,
+            className: true,
+            children: true,
+            style: true,
+        });
+        const id = props.id;
+        const className = props.className;
+        const children = props.children;
+        const style = props.style;
+
 
         if (this.gauge && this.storedCanvas) {
             const lastOptions = this.lastOptions;
@@ -54,7 +75,6 @@ export default class RGauge extends Component {
                 if (changes === 1 && lastChange === 'value') {
                     this.gauge.value = o;
                 } else if (changes > 0) {
-                    console.log("-- new options: ", newOptions);
                     this.gauge.update(newOptions);    
                 }
             } else {
@@ -66,32 +86,37 @@ export default class RGauge extends Component {
     }
 
     createGauge(canvas, options) {
-        return new BaseGauge( { renderTo: canvas,  ...options} );
+        options.renderTo = canvas;
+        return new BaseGauge( options );
     }    
 
     handleCanvasMount = (canvas) => {
-        const {
-            id,
-            className,
-            children,
-            style,
-            ...options
-        } = this.props;
-
+        const props = this.props;
+        
+        const options = objectWithout(props, {
+            id: true,
+            className: true,
+            children: true,
+            style: true,
+        });
+        
+        const id = props.id;
+        const className = props.className;
+        const children = props.children;
+        const style = props.style;
         const gauge = this.gauge;
 
-        console.log("--> options: ", options);
-        
         if (gauge) {
 
             if (canvas === this.storedCanvas) {
-                gauge.update( { ...options } );
+                gauge.update( options );
                 gauge.draw();
             } else {
                 this.storedCanvas = canvas;
 
                 if (gauge) {
-                    gauge.update( { renderTo: canvas, ...options } );
+                    options.renderTo = canvas;
+                    gauge.update( options );
                 }
             }
 
@@ -107,20 +132,20 @@ export default class RGauge extends Component {
     }
 
     render() {
-        const {
-            id,
-            className,
-            children,
-            style,
-            
-        } = this.props;
+        const props = this.props;
+        const id = props.id;
+        const className = props.className;
+        const children = props.children;
+        const style = props.style;
 
         return (
             <canvas 
                 id={ id } 
                 className={ className }  
                 style={ style }
+                children= {children}
                 ref={ this.handleCanvasMount } 
+
             />
         )
     }

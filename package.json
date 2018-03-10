@@ -2,6 +2,8 @@
   "name": "r-gauges",
   "version": "0.0.1",
   "description": "React JS implementation of canvas gauges",
+  "homepage": "https://github.com/stanurkov/r-gauges",
+  "repository": "github:stanurkov/r-gauges",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
