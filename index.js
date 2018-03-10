@@ -1,8 +1,8 @@
 import RGauge, { RRadialGauge, RLinearGauge } from './RGauge';
 
-exports  {
+exports {
         RGauge as default,
 	RRadialGauge as RadialGauge,
-	RLinearGauge as LinearGauge 
+	RLinearGauge as LinearGauge
 };
 

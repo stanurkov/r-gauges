@@ -20,6 +20,10 @@ function objectWithout( object, exclude ) {
 
 
 export default class RGauge extends Component {
+    constructor(props, ...other) {
+		super(props, ...other);
+		this.handleCanvasMount = this.handleCanvasMount.bind(this);
+	}
 
     componentWillUnmount() {
         if (this.gauge) {
@@ -51,7 +55,7 @@ export default class RGauge extends Component {
                 let lastChange;
                 let o;
 
-                const objectsDiffer = (o1, o2) => {
+                const objectsDiffer = function(o1, o2) {
                     let o, i;
 
                     for (i in o1) {
@@ -90,7 +94,7 @@ export default class RGauge extends Component {
         return new BaseGauge( options );
     }    
 
-    handleCanvasMount = (canvas) => {
+    handleCanvasMount(canvas) {
         const props = this.props;
         
         const options = objectWithout(props, {
@@ -139,15 +143,14 @@ export default class RGauge extends Component {
         const style = props.style;
 
         return (
-            <canvas 
-                id={ id } 
-                className={ className }  
-                style={ style }
-                children= {children}
-                ref={ this.handleCanvasMount } 
-
-            />
-        )
+            React.createElement('canvas', {
+                id: id,
+                className: className,
+                style: style,
+                children: children,
+                ref: this.handleCanvasMount
+            })
+        );
     }
 
 }
@@ -155,7 +158,8 @@ export default class RGauge extends Component {
 export class RRadialGauge extends RGauge {
 
     createGauge(canvas, options) {
-        return new RadialGauge( { renderTo: canvas,  ...options} );
+        options.renderTo = canvas;
+        return new RadialGauge( options );
     }    
 
 }
@@ -163,7 +167,8 @@ export class RRadialGauge extends RGauge {
 export class RLinearGauge extends RGauge {
 
     createGauge(canvas, options) {
-        return new RadialGauge( { renderTo: canvas,  ...options} );
+        options.renderTo = canvas;
+        return new RadialGauge( options );
     }    
 
 }
