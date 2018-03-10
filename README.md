@@ -16,7 +16,7 @@ Canvas Gauges library currently implements two types of HTML canvas-based gauges
 
 R-Gauges library provides React Components that basically wrap functionality of Canvas Gauges so it is possible to seamlessly integrate them into your React frontend.
 
-[[cg-url]Documentation on Canvas Gauges is available here]
+[Documentation on Canvas Gauges is available here][cg-url]
  
 
 ## Usage Example
