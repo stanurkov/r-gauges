@@ -23,6 +23,7 @@ R-Gauges library provides React Components that basically wrap functionality of 
 
 It would be a good idea to create a component that sets most of all visual properties by itself (or from some configuration storage) and receives only important properties from its parent. So, we create a BlueCompass component that receives only the "azimuth" property and change that property from its parent component, MyDirGauge:
 
+```
 class BlueCompass extends Component {
 
     render() {
@@ -111,5 +112,5 @@ class MyDirGauge extends Component {
     }
 }
 
-
+```
 
