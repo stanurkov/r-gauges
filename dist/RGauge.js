@@ -61,6 +61,11 @@ var RGauge = function (_Component) {
     _createClass(RGauge, [{
         key: 'componentWillUnmount',
         value: function componentWillUnmount() {
+            this.handleUnmount();
+        }
+    }, {
+        key: 'handleUnmount',
+        value: function handleUnmount() {
             if (this.gauge) {
                 this.gauge.destroy();
 
@@ -133,6 +138,11 @@ var RGauge = function (_Component) {
     }, {
         key: 'handleCanvasMount',
         value: function handleCanvasMount(canvas) {
+            if (!canvas) {
+                this.handleUnmount();
+                return;
+            }
+
             var props = this.props;
 
             var options = objectWithout(props, {

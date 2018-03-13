@@ -2,12 +2,18 @@
   "name": "r-gauges",
   "version": "0.0.4",
   "description": "React JS implementation of canvas gauges",
-  "homepage": "https://github.com/stanurkov/r-gauges",
-  "repository": "github:stanurkov/r-gauges",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "scripts": {
     "build": "babel index.js RGauge.js --out-dir dist"
+  },
+  "homepage": "https://github.com/stanurkov/r-gauges",
+  "repository": "github:stanurkov/r-gauges",
+  "babel": {
+    "presets": [
+      "es2015",
+      "react"
+    ]
   },
   "keywords": [
     "react",
@@ -16,12 +22,6 @@
     "gauges",
     "component"
   ],
-  "babel": {
-    "presets": [
-      "es2015",
-      "react"
-    ]
-  },
   "author": "Stefan Tanurkov",
   "license": "MIT",
   "dependencies": {

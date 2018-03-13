@@ -26,6 +26,10 @@ export default class RGauge extends Component {
 	}
 
     componentWillUnmount() {
+        this.handleUnmount();
+    }
+
+    handleUnmount() {
         if (this.gauge) {
             this.gauge.destroy();
 
@@ -33,6 +37,7 @@ export default class RGauge extends Component {
             this.storedCanvas = null;
         }
     }
+
 
     componentWillReceiveProps(props) {
         const options = objectWithout(props, {
@@ -95,6 +100,11 @@ export default class RGauge extends Component {
     }    
 
     handleCanvasMount(canvas) {
+        if (!canvas) {
+            this.handleUnmount();
+            return;            
+        }
+
         const props = this.props;
         
         const options = objectWithout(props, {
